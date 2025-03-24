@@ -32,35 +32,25 @@ public class PokemonService {
             throw new RuntimeException("Failed to fetch data: HTTP error code"+ connection.getResponseCode());
         }
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
+        StringBuilder response = new StringBuilder();
+        String line;
 
-            while((line= reader.readLine())!=null){
+         while((line= reader.readLine())!=null){
                 response.append(line);
             }
             reader.close();
 
-            ObjectMapper objectMapper = new ObjectMapper();
+         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode node = objectMapper.readTree(response.toString());
 
         String name =node.get("name").asText();
         int height =node.get("height").asInt();
         int weight= node.get("weight").asInt();
         int baseExperience = node.get("base_experience").asInt();
-       int moves = node.get("moves").size();
+        int moves = node.get("moves").size();
 
         return new Pokemon(name,height,weight,baseExperience,moves);
     }
-//public static void main(String[] args) {
-//        try {
-//            SpringApplication.run(PokemonService.class, args);
-//
-//            Pokemon pokemon =getPokemonData("bulbasaur");
-//            System.out.println(pokemon);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
 
 
 }
