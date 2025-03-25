@@ -1,0 +1,13 @@
+FROM openjdk:17-jdk-slim as builder
+
+# Set working directory in the container
+WORKDIR /app
+
+# Copy the jar file from your local system to the container
+COPY target/Pokemon-1.0-SNAPSHOT.jar /app/app.jar
+
+# Expose the port your app will run on (8080 is default for Spring Boot)
+EXPOSE 8080
+
+# Run the jar file
+ENTRYPOINT ["java", "-jar", "app.jar"]
